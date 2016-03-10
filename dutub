@@ -1,0 +1,3 @@
+#!/bin/bash
+
+curl --ciphers RC4-SHA "$(youtube-dl -g $1)" | mplayer -

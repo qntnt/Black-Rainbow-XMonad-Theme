@@ -7,14 +7,15 @@
 
 ### Installation
 
-First install XMonad, XMobar, urxvt, and feh
+First install XMonad, XMobar, urxvt, feh, mplayer, curl, and youtube-dl
 
 ```
-sudo apt-get install xmonad xmonad-contrib xmobar rxvt-unicode feh
+sudo apt-get install xmonad xmonad-contrib xmobar rxvt-unicode feh mplayer curl youtube-dl
 ```
 
 Then clone this repo into your home directory as `.xmonad`
 
+Move `.Xdefaults` to your home directory and add `dutub` to your path.
 From there, this should work as long as you use XMonad as your window manager.
 
 ### Configuration
