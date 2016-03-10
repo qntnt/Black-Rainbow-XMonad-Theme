@@ -7,10 +7,10 @@
 
 ### Installation
 
-First install XMonad and XMobar
+First install XMonad, XMobar, urxvt, and feh
 
 ```
-sudo apt-get install xmonad xmonad-contrib xmobar
+sudo apt-get install xmonad xmonad-contrib xmobar rxvt-unicode feh
 ```
 
 Then clone this repo into your home directory as `.xmonad`
