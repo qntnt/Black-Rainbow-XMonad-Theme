@@ -1,4 +1,4 @@
-## Blood Triangle Theme
+## Black Rainbow XMonad Theme
 > XMonad Config
 
 ### Installation
