@@ -10,7 +10,7 @@
 First install XMonad and XMobar
 
 ```
-sudo apt-get install xmonad xmobar
+sudo apt-get install xmonad xmonad-contrib xmobar
 ```
 
 Then clone this repo into your home directory as `.xmonad`
