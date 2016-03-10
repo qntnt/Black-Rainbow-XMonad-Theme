@@ -1,6 +1,10 @@
 ## Black Rainbow XMonad Theme
 > XMonad Config
 
+![Floating Terminal](https://github.com/quentunahelper/Black-Rainbow-XMonad-Theme/images/terminalFloat.png)
+![Video 1](https://github.com/quentunahelper/Black-Rainbow-XMonad-Theme/images/video.png)
+![Video 2](https://github.com/quentunahelper/Black-Rainbow-XMonad-Theme/images/video2.png)
+
 ### Installation
 
 First install XMonad and XMobar

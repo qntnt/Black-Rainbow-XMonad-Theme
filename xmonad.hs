@@ -106,6 +106,7 @@ defaults = baseConfig
 -- BARS --
 ----------
 
+dmenuCommand = "dmenu"
 genXMobarCommand = do
 	xConfig <- getXMobarConfig
 	return $ "xmobar --bgcolor="++ bgColor ++" --fgcolor="++ fgColor ++" "++ xConfig
