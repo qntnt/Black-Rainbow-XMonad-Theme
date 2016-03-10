@@ -21,19 +21,18 @@ import System.FilePath
 ------------
 
 primaryColor = "#E0444F"
-bgColor = "#4E4651"
+bgColor = "#2F2A30"
 fgColor = "#B9B9B9"
 
 ------------------
 -- BASIC CONFIG --
 ------------------
 
-
 baseConfig = desktopConfig
 getWallpaperDir = do
 	homeDir <- getHomeDirectory
 	return $ homeDir </> "Pictures/wallpapers"
-myTerminal = "gnome-terminal"
+myTerminal = "urxvt"
 myModMask = mod4Mask
 myBorderWidth = 3
 myFocusedBorderColor = primaryColor
@@ -119,7 +118,7 @@ genBackgroundCommand = do
 	wallpaperDir <- getWallpaperDir
 	image <- chooseItem . listDirectory $ wallpaperDir
 	homeDir <- getHomeDirectory
-	return $ "xloadimage -onroot -fullscreen "++ homeDir ++"/Pictures/wallpapers/"++ image
+	return $ "feh --bg-fill "++ homeDir ++"/Pictures/wallpapers/"++ image
 
 ----------
 -- MAIN --
@@ -137,7 +136,6 @@ main = do
 		  , ppLayout = const ""
 		  }
 		}
-
 
 -----------------------
 -- UTILITY FUNCTIONS --
