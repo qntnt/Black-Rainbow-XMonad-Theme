@@ -67,9 +67,9 @@ webLayout = gapLayout $ fullLayout ||| tiledLayout (2/3)
 -- WORKSPACES --
 ----------------
 
-myWorkspaces = ["1:main", "2:web", "3:vim", "4:gimp"]
+myWorkspaces = ["1:main", "2:dev", "3:media", "4:gimp"]
 myLayoutHook =
-	onWorkspaces ["2:web"] webLayout $
+	onWorkspaces ["3:media"] webLayout $
 	onWorkspaces ["4:gimp"] gimpLayout $
 	defaultLayout
 
@@ -81,9 +81,10 @@ myManageHook = composeAll . concat $
 	[ [ resource =? r --> doIgnore | r <- myIgnores]
 	, [ className =? "Gimp" --> doShift "4:gimp"
 	  , className =? "Gimp" --> doFloat
+	  , className =? "Atom" --> doShift "2:dev"
+	  , className =? "Nuvolaplayer3" --> doShift "3:media"
 	  ]
 	] where
-		myGimp = ["Gimp"]
 		myIgnores = ["desktop", "desktop_window", "notify-osd"]
 
 --------------------
@@ -132,7 +133,7 @@ main = do
 	xmonad defaults
 		{ logHook = dynamicLogWithPP xmobarPP
 		  { ppOutput = hPutStrLn xmproc
-		  , ppTitle = xmobarColor fgColor "" . shorten 80
+		  , ppTitle = xmobarColor fgColor "" . shorten 75
 		  , ppLayout = const ""
 		  }
 		}

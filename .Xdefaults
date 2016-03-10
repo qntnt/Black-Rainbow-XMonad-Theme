@@ -1,7 +1,8 @@
 !---------!
 ! f o n t !
 !---------!
-*font: xft:Anonymous Pro:pixelsize=13
+*font: xft:Monoid:pixelsize=12
+URxvt*letterSpace: -2
 
 !-----------!
 ! c o l o r !
@@ -41,13 +42,16 @@
 URxvt*matcher.pattern.0: \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(jpg|jpeg|png)
 URxvt*matcher.launcher.0: feh $0
 
-URxvt*matcher.pattern.1: \\bhttps?:\/\/[\\w-.]*youtube.com\/[\\w./?&@#0=]*
-URxvt*matcher.launcher.1: setsid dutub $0 >/dev/null 2>&1 < /dev/null &
+URxvt*matcher.pattern.1: \\bhttps?:\/\/[\\w-.]*youtube.com\/[\\w./?&@#0=-]*
+URxvt*matcher.launcher.1: setsid dutub $0 >/dev/null 2>&1 < /dev/null & 
+
+URxvt*perl-ext-common: default,matcher
+URxvt*urlLauncher: google-chrome
+URxvt*matcher.button: 1
 
 !-----------!
 ! u r x v t !
 !-----------!
-URxvt*perl-ext: default,matcher
 
 Xft*dpi: 96
 Xft*antialias: true
@@ -57,8 +61,6 @@ URxvt.depth: 32
 URxvt*borderless: 1
 URxvt.internalBorder: 20
 
-URxvt*matcher.button: 1
-URxvt*urlLauncher: google-chrome
 URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
 URxvt*scrollTtyKeypress: true
