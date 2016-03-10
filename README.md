@@ -1,9 +1,9 @@
 ## Black Rainbow XMonad Theme
 > XMonad Config
 
-![Floating Terminal](https://github.com/quentunahelper/Black-Rainbow-XMonad-Theme/images/terminalFloat.png)
-![Video 1](https://github.com/quentunahelper/Black-Rainbow-XMonad-Theme/images/video.png)
-![Video 2](https://github.com/quentunahelper/Black-Rainbow-XMonad-Theme/images/video2.png)
+![Floating Terminal](https://raw.githubusercontent.com/quentunahelper/Black-Rainbow-XMonad-Theme/bbdf328898a018d4b79c98383542d4e280355ee8/images/terminalFloat.png)
+![Video 1](https://raw.githubusercontent.com/quentunahelper/Black-Rainbow-XMonad-Theme/bbdf328898a018d4b79c98383542d4e280355ee8/images/video.png)
+![Video 2](https://raw.githubusercontent.com/quentunahelper/Black-Rainbow-XMonad-Theme/bbdf328898a018d4b79c98383542d4e280355ee8/images/video2.png)
 
 ### Installation
 
