@@ -1,5 +1,7 @@
 import XMonad
 
+import XMonad.Actions.SpawnOn
+
 import XMonad.Config.Desktop
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
@@ -61,7 +63,8 @@ defaultLayout =
 gimpLayout = gapLayout $ 
 	spacedLayout $
 	ThreeCol 2 (3/100) (3/4)
-webLayout = gapLayout $ fullLayout ||| tiledLayout (2/3)
+mediaLayout = gapLayout $ tiledLayout (1/2) ||| tiledLayout (2/3) ||| fullLayout
+devLayout = gapLayout $ tiledLayout (1/2) ||| tiledLayout (2/3)
 
 ----------------
 -- WORKSPACES --
@@ -69,9 +72,19 @@ webLayout = gapLayout $ fullLayout ||| tiledLayout (2/3)
 
 myWorkspaces = ["1:main", "2:dev", "3:media", "4:gimp"]
 myLayoutHook =
-	onWorkspaces ["3:media"] webLayout $
+	onWorkspaces ["2:dev"] devLayout $
+	onWorkspaces ["3:media"] mediaLayout $
 	onWorkspaces ["4:gimp"] gimpLayout $
 	defaultLayout
+
+------------------
+-- STARTUP HOOK --
+------------------
+myStartupHook = do
+	spawnOn "3:media" "nuvolaplayer3"
+	spawnOn "2:dev" "urxvt"
+	spawnOn "4:gimp" "gimp"
+	spawnOn "2:dev" "atom"
 
 -----------------
 -- MANAGEHOOKS --
@@ -81,8 +94,8 @@ myManageHook = composeAll . concat $
 	[ [ resource =? r --> doIgnore | r <- myIgnores]
 	, [ className =? "Gimp" --> doShift "4:gimp"
 	  , className =? "Gimp" --> doFloat
-	  , className =? "Atom" --> doShift "2:dev"
 	  , className =? "Nuvolaplayer3" --> doShift "3:media"
+	  , className =? "Atom" --> doShift "2:dev"
 	  ]
 	] where
 		myIgnores = ["desktop", "desktop_window", "notify-osd"]
@@ -97,9 +110,10 @@ defaults = baseConfig
 	, borderWidth = myBorderWidth
 	, layoutHook = myLayoutHook
 	, workspaces = myWorkspaces
-	, manageHook = myManageHook <+> manageHook defaultConfig
+	, manageHook = manageSpawn <+> myManageHook <+> manageHook defaultConfig
 	, focusedBorderColor = myFocusedBorderColor
 	, normalBorderColor = myNormalBorderColor
+	, startupHook = myStartupHook
 	}
 
 ----------
