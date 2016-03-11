@@ -1,5 +1,5 @@
 Config
-  { font = "xft:Monoisome:pixelsize=12"
+  { font = "xft:Deja Vu Sans:pixelsize=12"
   , position = Top
 	
   -- layout
@@ -9,10 +9,8 @@ Config
 	
   -- general
   , lowerOnStart = False
-  , allDesktops = True
-  , persistent = True
   , commands = 
-    [ Run Com "date" ["+\"%H.%M, %A\""] "mydate" 600
+    [ Run Com "date" ["+'%H.%M, %A'"] "mydate" 600
     , Run Date "%F (%a) %T" "date" 10
     , Run StdinReader
     ]

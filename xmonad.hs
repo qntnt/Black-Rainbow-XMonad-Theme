@@ -141,6 +141,7 @@ genBackgroundCommand = do
 
 main = do
 	xmobarCommand <- genXMobarCommand
+        putStrLn xmobarCommand
 	xmproc <- spawnPipe xmobarCommand
 	bgCommand <- genBackgroundCommand
 	bgproc <- spawnPipe bgCommand
@@ -161,11 +162,11 @@ getTime = do
 	time <- getPOSIXTime
 	return $ round time
 
-listDirectory :: String -> IO [ String ]
-listDirectory dir = do
-	files <- getDirectoryContents dir
-	return $ filter dots files where
-		dots x = and [x /= ".", x /= ".."]
+--listDirectory :: String -> IO [ String ]
+--listDirectory dir = do
+--	files <- getDirectoryContents dir
+--	return $ filter dots files where
+--		dots x = and [x /= ".", x /= ".."]
 
 chooseItem :: IO [ String ] -> IO String
 chooseItem list = do
