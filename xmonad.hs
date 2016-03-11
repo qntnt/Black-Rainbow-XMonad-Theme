@@ -70,21 +70,21 @@ devLayout = gapLayout $ tiledLayout (1/2) ||| tiledLayout (2/3)
 -- WORKSPACES --
 ----------------
 
-myWorkspaces = ["1:main", "2:dev", "3:media", "4:gimp"]
+myWorkspaces = ["†", "dev", "media", "gimp"]
 myLayoutHook =
-	onWorkspaces ["2:dev"] devLayout $
-	onWorkspaces ["3:media"] mediaLayout $
-	onWorkspaces ["4:gimp"] gimpLayout $
+	onWorkspaces ["dev"] devLayout $
+	onWorkspaces ["media"] mediaLayout $
+	onWorkspaces ["gimp"] gimpLayout $
 	defaultLayout
 
 ------------------
 -- STARTUP HOOK --
 ------------------
 myStartupHook = do
-	spawnOn "3:media" "nuvolaplayer3"
-	spawnOn "2:dev" "urxvt"
-	spawnOn "4:gimp" "gimp"
-	spawnOn "2:dev" "atom"
+	spawnOn "media" "nuvolaplayer3"
+	spawnOn "dev" "urxvt"
+	spawnOn "gimp" "gimp"
+	spawnOn "dev" "atom"
 
 -----------------
 -- MANAGEHOOKS --
@@ -92,10 +92,10 @@ myStartupHook = do
 
 myManageHook = composeAll . concat $
 	[ [ resource =? r --> doIgnore | r <- myIgnores]
-	, [ className =? "Gimp" --> doShift "4:gimp"
+	, [ className =? "Gimp" --> doShift "gimp"
 	  , className =? "Gimp" --> doFloat
-	  , className =? "Nuvolaplayer3" --> doShift "3:media"
-	  , className =? "Atom" --> doShift "2:dev"
+	  , className =? "Nuvolaplayer3" --> doShift "media"
+	  , className =? "Atom" --> doShift "dev"
 	  ]
 	] where
 		myIgnores = ["desktop", "desktop_window", "notify-osd"]

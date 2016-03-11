@@ -1,18 +1,19 @@
 Config
-  { font = "xft:Monoid:pixelsize=12"
+  { font = "xft:Monoisome:pixelsize=12"
   , position = Top
 	
   -- layout
   , sepChar = "%"
   , alignSep = "}{"
-  , template = " %StdinReader% }{ %date% "
+  , template = " %StdinReader% }{ %mydate% "
 	
   -- general
   , lowerOnStart = False
   , allDesktops = True
   , persistent = True
   , commands = 
-    [ Run Date "%F (%a) %T" "date" 10
+    [ Run Com "date" ["+\"%H.%M, %A\""] "mydate" 600
+    , Run Date "%F (%a) %T" "date" 10
     , Run StdinReader
     ]
   }
