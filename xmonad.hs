@@ -3,17 +3,20 @@ import XMonad
 import XMonad.Actions.SpawnOn
 
 import XMonad.Config.Desktop
+
 import XMonad.Layout.Spacing
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Gaps
 import XMonad.Layout.PerWorkspace
 
+import XMonad.Hooks.FadeWindows
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Util.Run
-import System.IO
 
+import XMonad.Util.Run
+
+import System.IO
 import Data.Time.Clock.POSIX
 import System.Directory
 import System.FilePath
@@ -47,7 +50,7 @@ getXMobarConfig = do
 -- LAYOUTS --
 -------------
 
-gapLayout = gaps [(U, 22)]
+gapLayout = gaps [(U, 20)]
 spacedLayout = spacing 10
 tiledLayout ratio =
 	spacedLayout $
@@ -134,26 +137,37 @@ genBackgroundCommand = do
 	homeDir <- getHomeDirectory
 	return $ "feh --bg-fill "++ homeDir ++"/Pictures/wallpapers/"++ image
 
+myFadeHook = composeAll
+	[ isUnfocused --> transparency 0.2
+	, opaque
+	]
+
+genComptonCommand = do
+	homeDir <- getHomeDirectory
+	return $ "compton --config "++ homeDir ++"/.xmonad/compton.conf"
+
 ----------
 -- MAIN --
 ----------
 
 main = do
+	comptonCommand <- genComptonCommand
+	comptonproc <- spawnPipe comptonCommand
 	xmobarCommand <- genXMobarCommand
 	xmproc <- spawnPipe xmobarCommand
 	bgCommand <- genBackgroundCommand
 	bgproc <- spawnPipe bgCommand
 	xmonad defaults
 		{ logHook = dynamicLogWithPP xmobarPP
-		  { ppOutput = hPutStrLn xmproc
-		  , ppTitle = xmobarColor fgColor "" . shorten 75
-		  , ppLayout = const ""
-		  , ppCurrent = xmobarColor primaryColor ""
-		  , ppVisible = xmobarColor fgColor ""
-		  , ppHiddenNoWindows = const ""
-		  , ppWsSep = " "
-		  , ppSep = "   "
-		  }
+			{ ppOutput = hPutStrLn xmproc
+			, ppTitle = xmobarColor fgColor "" . shorten 75
+			, ppLayout = const ""
+			, ppCurrent = xmobarColor primaryColor ""
+			, ppVisible = xmobarColor fgColor ""
+			, ppHiddenNoWindows = const ""
+			, ppWsSep = " "
+			, ppSep = "   "
+			}
 		}
 
 -----------------------
