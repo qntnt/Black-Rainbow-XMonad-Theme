@@ -10,7 +10,7 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.Gaps
 import XMonad.Layout.PerWorkspace
 
-import XMonad.Hooks.FadeWindows
+import XMonad.Hooks.FadeInactive
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 
@@ -137,11 +137,6 @@ genBackgroundCommand = do
 	homeDir <- getHomeDirectory
 	return $ "feh --bg-fill "++ homeDir ++"/Pictures/wallpapers/"++ image
 
-myFadeHook = composeAll
-	[ isUnfocused --> transparency 0.2
-	, opaque
-	]
-
 genComptonCommand = do
 	homeDir <- getHomeDirectory
 	return $ "compton --config "++ homeDir ++"/.xmonad/compton.conf"
@@ -158,7 +153,7 @@ main = do
 	bgCommand <- genBackgroundCommand
 	bgproc <- spawnPipe bgCommand
 	xmonad defaults
-		{ logHook = dynamicLogWithPP xmobarPP
+		{ logHook = fadeInactiveLogHook 0.85 >> dynamicLogWithPP xmobarPP
 			{ ppOutput = hPutStrLn xmproc
 			, ppTitle = xmobarColor fgColor "" . shorten 75
 			, ppLayout = const ""

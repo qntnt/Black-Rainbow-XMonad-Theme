@@ -28,7 +28,7 @@ URxvt*letterSpace: -2
 *color12: #9aacc3
 ! 5: magenta
 *color5: #bb77a4
-*color13:#bb77a4 
+*color13:#bb77a4
 ! 6: cyan
 *color6: #77bbb5
 *color14: #77bbb5
@@ -43,7 +43,7 @@ URxvt*matcher.pattern.0: \\bhttps?:\/\/[\\w-.]*\/[\\w./?&@#-]*.(jpg|jpeg|png)
 URxvt*matcher.launcher.0: feh $0
 
 URxvt*matcher.pattern.1: \\bhttps?:\/\/[\\w-.]*youtube.com\/[\\w./?&@#0=-]*
-URxvt*matcher.launcher.1: setsid dutub $0 >/dev/null 2>&1 < /dev/null & 
+URxvt*matcher.launcher.1: setsid dutub $0 >/dev/null 2>&1 < /dev/null &
 
 URxvt*perl-ext-common: default,matcher
 URxvt*urlLauncher: google-chrome
@@ -57,9 +57,9 @@ Xft*dpi: 96
 Xft*antialias: true
 Xft*hinting: full
 
-URxvt.depth: 32
-URxvt*borderless: 1
-URxvt.internalBorder: 20
+!URxvt*depth: 32
+!URxvt*borderless: 1
+!URxvt.internalBorder: 20
 
 URxvt*scrollTtyOutput: false
 URxvt*scrollWithBuffer: true
@@ -67,4 +67,3 @@ URxvt*scrollTtyKeypress: true
 URxvt*scrollBar: false
 URxvt*scrollBar_right: true
 URxvt*scrollColor: #000000
-
