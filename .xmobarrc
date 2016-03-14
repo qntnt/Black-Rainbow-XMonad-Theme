@@ -10,7 +10,7 @@ Config
   -- general
   , lowerOnStart = False
   , commands =
-    [ Run Com "date" ["+%H.%M, %A"] "mydate" 600
+    [ Run Com "date" ["+'%H.%M, %A'"] "mydate" 600
     , Run Date "%F (%a) %T" "date" 10
     , Run StdinReader
     ]

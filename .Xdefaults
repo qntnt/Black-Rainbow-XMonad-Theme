@@ -47,13 +47,13 @@ URxvt*matcher.launcher.1: setsid dutub $0 >/dev/null 2>&1 < /dev/null &
 
 URxvt*perl-ext-common: default,matcher
 URxvt*urlLauncher: google-chrome
+
 URxvt*matcher.button: 1
 
 !-----------!
 ! u r x v t !
 !-----------!
 
-Xft*dpi: 96
 Xft*antialias: true
 Xft*hinting: full
 
