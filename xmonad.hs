@@ -47,20 +47,20 @@ getXMobarConfig = do
 -- LAYOUTS --
 -------------
 
-gapLayout = gaps [(U, 20)]
+gapLayout = gaps [(U, 22)]
 spacedLayout = spacing 10
-tiledLayout ratio = 
+tiledLayout ratio =
 	spacedLayout $
 	Tall nmaster delta ratio where
 		nmaster = 1
 		delta = 5/100
 fullLayout = noBorders Full
 
-defaultLayout = 
-	gapLayout $ tiledLayout (2/3) ||| 
-	Mirror (tiledLayout (1/2)) ||| 
+defaultLayout = gapLayout $
+	tiledLayout (2/3) |||
+	Mirror (tiledLayout (1/2)) |||
 	fullLayout
-gimpLayout = gapLayout $ 
+gimpLayout = gapLayout $
 	spacedLayout $
 	ThreeCol 2 (3/100) (3/4)
 mediaLayout = gapLayout $ tiledLayout (1/2) ||| tiledLayout (2/3) ||| fullLayout
@@ -69,22 +69,22 @@ devLayout = gapLayout $ tiledLayout (1/2) ||| tiledLayout (2/3)
 ----------------
 -- WORKSPACES --
 ----------------
-
-myWorkspaces = ["†", "dev", "media", "gimp"]
+-- I:home II:dev III:media IV:gimp
+myWorkspaces = ["I", "II", "III", "IV"]
 myLayoutHook =
-	onWorkspaces ["dev"] devLayout $
-	onWorkspaces ["media"] mediaLayout $
-	onWorkspaces ["gimp"] gimpLayout $
+	onWorkspaces ["II"] devLayout $
+	onWorkspaces ["III"] mediaLayout $
+	onWorkspaces ["IV"] gimpLayout $
 	defaultLayout
 
 ------------------
 -- STARTUP HOOK --
 ------------------
 myStartupHook = do
-	spawnOn "media" "nuvolaplayer3"
-	spawnOn "dev" "urxvt"
-	spawnOn "gimp" "gimp"
-	spawnOn "dev" "atom"
+	spawnOn "III" "nuvolaplayer3"
+	spawnOn "II" "urxvt"
+	spawnOn "IV" "gimp"
+	spawnOn "II" "atom"
 
 -----------------
 -- MANAGEHOOKS --
@@ -92,10 +92,9 @@ myStartupHook = do
 
 myManageHook = composeAll . concat $
 	[ [ resource =? r --> doIgnore | r <- myIgnores]
-	, [ className =? "Gimp" --> doShift "gimp"
-	  , className =? "Gimp" --> doFloat
-	  , className =? "Nuvolaplayer3" --> doShift "media"
-	  , className =? "Atom" --> doShift "dev"
+	, [ className =? "Gimp" --> doShift "IV"
+	  , className =? "Nuvolaplayer3" --> doShift "III"
+	  , className =? "Atom" --> doShift "II"
 	  ]
 	] where
 		myIgnores = ["desktop", "desktop_window", "notify-osd"]
@@ -141,7 +140,6 @@ genBackgroundCommand = do
 
 main = do
 	xmobarCommand <- genXMobarCommand
-        putStrLn xmobarCommand
 	xmproc <- spawnPipe xmobarCommand
 	bgCommand <- genBackgroundCommand
 	bgproc <- spawnPipe bgCommand
@@ -150,6 +148,11 @@ main = do
 		  { ppOutput = hPutStrLn xmproc
 		  , ppTitle = xmobarColor fgColor "" . shorten 75
 		  , ppLayout = const ""
+		  , ppCurrent = xmobarColor primaryColor ""
+		  , ppVisible = xmobarColor fgColor ""
+		  , ppHiddenNoWindows = const ""
+		  , ppWsSep = " "
+		  , ppSep = "   "
 		  }
 		}
 

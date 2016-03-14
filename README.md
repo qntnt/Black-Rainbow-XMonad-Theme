@@ -10,7 +10,7 @@
 First install XMonad, XMobar, urxvt, feh, mplayer, curl, and youtube-dl
 
 ```
-sudo apt-get install xmonad xmonad-contrib xmobar rxvt-unicode feh mplayer curl youtube-dl
+sudo apt-get install xmonad xmonad-contrib suckless-tools xmobar rxvt-unicode feh mplayer curl youtube-dl
 ```
 
 Then clone this repo into your home directory as `.xmonad`
