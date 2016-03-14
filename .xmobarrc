@@ -5,13 +5,21 @@ Config
   -- layout
   , sepChar = "%"
   , alignSep = "}{"
-  , template = " %StdinReader% }{ %mydate% "
+  , template = " %StdinReader% }{ %battery%   %mydate% "
 
   -- general
   , lowerOnStart = False
   , commands =
-    [ Run Com "date" ["+'%H.%M, %A'"] "mydate" 600
-    , Run Date "%F (%a) %T" "date" 10
+    [ Run Com
+      "date"
+      ["+'%H.%M, %A'"]
+      "mydate"
+      300
+    , Run BatteryP
+      [ "BAT0" ]
+      [ "-t", "<left>%"
+      ]
+      600
     , Run StdinReader
     ]
   }

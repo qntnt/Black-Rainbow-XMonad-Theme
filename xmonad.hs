@@ -29,14 +29,17 @@ primaryColor = "#E0444F"
 bgColor = "#2F2A30"
 fgColor = "#B9B9B9"
 
+-----------
+-- FONTS --
+-----------
+
+mainFont = "xft:Monoid:pixelsize=12:antialias=true:hinting=true"
+
 ------------------
 -- BASIC CONFIG --
 ------------------
 
 baseConfig = desktopConfig
-getWallpaperDir = do
-	homeDir <- getHomeDirectory
-	return $ homeDir </> "Pictures/wallpapers"
 myTerminal = "urxvt"
 myModMask = mod4Mask
 myBorderWidth = 3
@@ -45,6 +48,9 @@ myNormalBorderColor = bgColor
 getXMobarConfig = do
 	homeDir <- getHomeDirectory
 	return $ homeDir </> ".xmonad/.xmobarrc"
+getWallpaperDir = do
+	homeDir <- getHomeDirectory
+	return $ homeDir </> "Pictures/wallpapers"
 
 -------------
 -- LAYOUTS --
@@ -57,17 +63,27 @@ tiledLayout ratio =
 	Tall nmaster delta ratio where
 		nmaster = 1
 		delta = 5/100
-fullLayout = noBorders Full
+fullLayout =
+	noBorders Full
 
-defaultLayout = gapLayout $
+defaultLayout =
+	gapLayout $
 	tiledLayout (2/3) |||
 	Mirror (tiledLayout (1/2)) |||
 	fullLayout
-gimpLayout = gapLayout $
+gimpLayout =
+	gapLayout $
 	spacedLayout $
 	ThreeCol 2 (3/100) (3/4)
-mediaLayout = gapLayout $ tiledLayout (1/2) ||| tiledLayout (2/3) ||| fullLayout
-devLayout = gapLayout $ tiledLayout (1/2) ||| tiledLayout (2/3)
+mediaLayout =
+	gapLayout $
+	tiledLayout (1/2) |||
+	tiledLayout (2/3) |||
+	fullLayout
+devLayout =
+	gapLayout $
+	tiledLayout (1/2) |||
+	tiledLayout (2/3)
 
 ----------------
 -- WORKSPACES --
@@ -93,14 +109,11 @@ myStartupHook = do
 -- MANAGEHOOKS --
 -----------------
 
-myManageHook = composeAll . concat $
-	[ [ resource =? r --> doIgnore | r <- myIgnores]
-	, [ className =? "Gimp" --> doShift "IV"
-	  , className =? "Nuvolaplayer3" --> doShift "III"
-	  , className =? "Atom" --> doShift "II"
-	  ]
-	] where
-		myIgnores = ["desktop", "desktop_window", "notify-osd"]
+myManageHook = composeAll
+	[ className =? "Gimp" --> doShift "IV"
+	, className =? "Nuvolaplayer3" --> doShift "III"
+	, className =? "Atom" --> doShift "II"
+	]
 
 --------------------
 -- SETUP DEFAULTS --
@@ -112,7 +125,11 @@ defaults = baseConfig
 	, borderWidth = myBorderWidth
 	, layoutHook = myLayoutHook
 	, workspaces = myWorkspaces
-	, manageHook = manageSpawn <+> myManageHook <+> manageHook defaultConfig
+	, manageHook = composeAll
+		[ manageSpawn
+		, myManageHook
+		, manageHook defaultConfig
+		]
 	, focusedBorderColor = myFocusedBorderColor
 	, normalBorderColor = myNormalBorderColor
 	, startupHook = myStartupHook
@@ -123,9 +140,13 @@ defaults = baseConfig
 ----------
 
 dmenuCommand = "dmenu"
+
 genXMobarCommand = do
 	xConfig <- getXMobarConfig
-	return $ "xmobar --bgcolor="++ bgColor ++" --fgcolor="++ fgColor ++" "++ xConfig
+	return $ "xmobar --bgcolor=" ++ bgColor ++
+		" --fgcolor=" ++ fgColor ++
+		" --font=" ++ mainFont ++
+		" " ++ xConfig
 
 ----------------
 -- BACKGROUND --
@@ -136,6 +157,10 @@ genBackgroundCommand = do
 	image <- chooseItem . listDirectory $ wallpaperDir
 	homeDir <- getHomeDirectory
 	return $ "feh --bg-fill "++ homeDir ++"/Pictures/wallpapers/"++ image
+
+-------------
+-- COMPTON --
+-------------
 
 genComptonCommand = do
 	homeDir <- getHomeDirectory
@@ -169,19 +194,8 @@ main = do
 -- UTILITY FUNCTIONS --
 -----------------------
 
-getTime :: IO Int
-getTime = do
-	time <- getPOSIXTime
-	return $ round time
-
---listDirectory :: String -> IO [ String ]
---listDirectory dir = do
---	files <- getDirectoryContents dir
---	return $ filter dots files where
---		dots x = and [x /= ".", x /= ".."]
-
 chooseItem :: IO [ String ] -> IO String
 chooseItem list = do
-	time <- getTime
+	time <- getPOSIXTime
 	l <- list
-	return $ l !! (time `mod` (length l))
+	return $ l !! (mod (round time) (length l))
