@@ -45,9 +45,10 @@ myModMask = mod4Mask
 myBorderWidth = 3
 myFocusedBorderColor = primaryColor
 myNormalBorderColor = bgColor
+
 getXMobarConfig = do
 	homeDir <- getHomeDirectory
-	return $ homeDir </> ".xmonad/.xmobarrc"
+	return $ homeDir </> ".xmobarrc"
 getWallpaperDir = do
 	homeDir <- getHomeDirectory
 	return $ homeDir </> "Pictures/wallpapers"
@@ -164,7 +165,7 @@ genBackgroundCommand = do
 
 genComptonCommand = do
 	homeDir <- getHomeDirectory
-	return $ "compton --config "++ homeDir ++"/.xmonad/compton.conf"
+	return $ "compton --config "++ homeDir ++"/.config/compton.conf"
 
 ----------
 -- MAIN --
